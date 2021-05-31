@@ -1,3 +1,5 @@
+from datetime import datetime
+
 class BankAccount:
     Location ="Nairobi"
     def __init__(self,name,phone_number):
@@ -5,7 +7,7 @@ class BankAccount:
         self.phone_number = phone_number
         self.balance = 0
         self.borrow=0
-
+        self.statement = []
 
 
     def accepts_deposits(self):
@@ -17,7 +19,16 @@ class BankAccount:
     def deposit(self,amount):
             if amount>0:
                 self.balance += amount
+                now = datetime.now()
+                transaction={
+                    "amount":100000,
+                    "time":now,
+                    "Narration":"You deposited",
+                }
+                self.statement.append(transaction),
                 return self.show_balance()
+    
+
             else:
                 return f"You cannot withdraw {self.balance}"
     def withdraw(self,amount):
@@ -25,11 +36,31 @@ class BankAccount:
                 return f"Your balance is {self.balance} you cannot withdraw {amount}"
             else:
                 self .balance -= amount 
+                now = datetime.now()
+                transaction={
+                    "amount":100000,
+                    "time":now,
+                    "Narration":"You deposited",
+                }
+                self.statement.append(transaction),
                 return self.show_balance()
     def loan(self,amount): 
         return f"Your amount is {amount}"           
     def repayloan(self,amount):
-        return f"Your amount is {amount}"        
+        return f"Your amount is {amount}"  
+
+    def show_statement(self):  
+        return self.statement
+    def show_statement(self):
+        for transaction in self.statement:
+            amount = transaction["amount"]
+            Narration = transaction["Narration"]
+            time = transaction["time"]
+            date = time.strftime("%d/%m/%y")
+            print(f"{date}:{Narration} {amount}")
+        return 
+
+
            
 
 
