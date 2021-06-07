@@ -7,4 +7,4 @@ class Dog:
         return f"Hauliana {self.bark} loud."
 
     def  run(self):
-        return f"Hauliana {self.run} faster than Glory "
+        return f"Hauliana {self.run} faster than "
