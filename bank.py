@@ -2,8 +2,9 @@ from datetime import datetime
 
 class BankAccount:
     Location ="Nairobi"
-    def __init__(self,name,phone_number):
+    def __init__(self,name,phone_number,loan):
         self.name = name
+        self.loan=loan
         self.phone_number = phone_number
         self.statement = []
       
@@ -18,7 +19,15 @@ class BankAccount:
     def show_balance(self):
         return f"Hello {self.name} your balance is {self.balance}"  
     def deposit(self,amount):
-            if amount>0:
+
+        try:
+            10 + amount
+        except TypeError:
+            return f"The amount must be in figures"
+
+        if amount<0:
+            return f"You cannot deposit {self.deposit} "
+        else:        
                 self.balance += amount
                 now = datetime.now()
                 transaction={
@@ -27,15 +36,17 @@ class BankAccount:
                     "Narration":"You deposited",
                 }
                 self.statement.append(transaction),
-                return self.show_balance()
-    
+        return self.show_balance
 
-            else:
-                return f"You cannot withdraw {self.balance}"
     def withdraw(self,amount):
-            if amount>self.balance:
+        try:
+            10 + amount
+        except TypeError:
+            return f"The amount must be in figures"
+
+        if amount>self.balance:
                 return f"Your balance is {self.balance} you cannot withdraw {amount}"
-            else:
+        else:
                 self .balance -= amount 
                 now = datetime.now()
                 transaction={
@@ -61,6 +72,10 @@ class BankAccount:
             print(f"{date}:{Narration} {amount}")
         return 
     def borrow(self,amount):
+        try:
+            10 + amount
+        except TypeError:
+            return f"The amount must be in figures"
         if amount < 0:
              return "You can't borrow"
         elif  self.loan >0:
@@ -81,6 +96,12 @@ class BankAccount:
              self.statement.append(transaction),
              return f"{self.show_balance()} your loan is not complete"
     def repay(self,amount):
+
+        try:
+            10 + amount
+        except TypeError:
+            return f"The amount must be in figures"
+
         if amount< 0:
             return "You have to pay your loan"
         elif amount <self.loan:
@@ -98,6 +119,57 @@ class BankAccount:
                 }
             self.statement.append(transaction),
             return f"{self.show_balance()} your loan is completely sorted"
+
+
+    def transfer(self,account,amount):
+        try:
+            10 + amount
+        except TypeError:
+            return f"The amount must be in figures"
+        fee=amount*0.05
+        total =amount + fee
+
+        if amount > 0:
+            return f"your balance is {self.balance} and you need at least{total} for this transfer "   
+        else:
+            return "You cannot transfer this amount"
+
+
+class MobileMoneyAccount(BankAccount):
+    def __init__ (self,name,phone_number,service_provider):
+        BankAccount .__init__ (name,phone_number)
+        self.service_provider=service_provider
+    def buy_airtime(self,amount):
+        try:
+            10 + amount
+        except TypeError:
+            return f"The amount must be in figures"
+        if amount >0:
+            return f"Dear customer you have successfully purchase the airtime"
+        elif self.balance>amount:
+            return f"Dear customer your balance is low to purchase this airtime"   
+        else:
+            self.balance=self.balance-amount
+            return f"Dear customer, You can buy airtime.Your balance is {amount}"
+
+    def withdraw(self,amount):
+        try:
+            1000 + amount
+        except TypeError:
+            return f"The amount must be in figures"
+        if amount > 0:
+            return f""
+        if amount >0:
+            return f"Dear customer you have successfully purchase the airtime"
+        elif self.balance>amount:
+            return f"Dear customer your balance is low to purchase this airtime"   
+        else:
+            self.balance=self.balance-amount
+            return f"Dear customer, You can buy airtime.Your balance is {amount}"
+    
+
+
+
           
 
 
